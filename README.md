@@ -3,5 +3,5 @@
  
  
  
-![robot framework]
+
 # robot-framework-api
