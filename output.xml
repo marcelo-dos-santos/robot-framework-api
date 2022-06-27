@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.3 (Python 3.10.1 on win32)" generated="20220610 15:43:16.494" rpa="false" schemaversion="2">
+<suite id="s1" name="00" source="C:\Projetos\Robot Framework\00.robot">
+<test id="s1-t1" name="Deve cadastrar um personagem">
+<kw name="Account And Set Headers">
+<arg>victorfonsecasp2@gmail.com</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{usuario}</var>
+<arg>email=${email}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220610 15:43:16.673" level="INFO">&amp;{usuario} = { email=victorfonsecasp2@gmail.com }</msg>
+<status status="PASS" starttime="20220610 15:43:16.672" endtime="20220610 15:43:16.673"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>http://marvel.qaninja.academy/accounts</arg>
+<arg>json=${usuario}</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220610 15:43:22.055" level="INFO">POST Request : url=http://marvel.qaninja.academy/accounts 
+ path_url=/accounts 
+ headers={'User-Agent': 'python-requests/2.26.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '39', 'Content-Type': 'application/json'} 
+ body=b'{"email": "victorfonsecasp2@gmail.com"}' 
+ </msg>
+<msg timestamp="20220610 15:43:22.055" level="INFO">POST Response : url=http://marvel.qaninja.academy/accounts 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '41', 'Etag': 'W/"29-N+r4R2GWLevYWgjKtaH8HZPAqBc"', 'Date': 'Fri, 10 Jun 2022 18:43:22 GMT', 'Via': '1.1 vegur'} 
+ body={"client_key":"61c1bc7da0fbed001633dce5"} 
+ </msg>
+<msg timestamp="20220610 15:43:22.055" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220610 15:43:16.673" endtime="20220610 15:43:22.055"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${client_key}</var>
+<arg>${response.json()}[client_key]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220610 15:43:22.056" level="INFO">${client_key} = 61c1bc7da0fbed001633dce5</msg>
+<status status="PASS" starttime="20220610 15:43:22.055" endtime="20220610 15:43:22.056"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{HEADERS}</var>
+<arg>client_key=${client_key}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220610 15:43:22.057" level="INFO">&amp;{HEADERS} = { client_key=61c1bc7da0fbed001633dce5 }</msg>
+<status status="PASS" starttime="20220610 15:43:22.056" endtime="20220610 15:43:22.057"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${HEADERS}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20220610 15:43:22.057" level="INFO">${HEADERS} = {'client_key': '61c1bc7da0fbed001633dce5'}</msg>
+<status status="PASS" starttime="20220610 15:43:22.057" endtime="20220610 15:43:22.057"/>
+</kw>
+<status status="PASS" starttime="20220610 15:43:16.672" endtime="20220610 15:43:22.057"/>
+</kw>
+<kw name="Factory Thanos">
+<var>&amp;{personagem}</var>
+<msg timestamp="20220610 15:43:22.060" level="FAIL">No keyword with name 'Factory Thanos' found.</msg>
+<status status="FAIL" starttime="20220610 15:43:22.060" endtime="20220610 15:43:22.060"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>http://marvel.qaninja.academy/characters</arg>
+<arg>json=${personagem}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request.</doc>
+<status status="NOT RUN" starttime="20220610 15:43:22.061" endtime="20220610 15:43:22.061"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" starttime="20220610 15:43:22.061" endtime="20220610 15:43:22.061"/>
+</kw>
+<status status="FAIL" starttime="20220610 15:43:16.671" endtime="20220610 15:43:22.062">No keyword with name 'Factory Thanos' found.</status>
+</test>
+<doc>Suite de Teste do cadastro de personagens na API da Marvel</doc>
+<status status="FAIL" starttime="20220610 15:43:16.496" endtime="20220610 15:43:22.064"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="00">00</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220610 15:43:16.670" level="ERROR">Error in file 'C:\Projetos\Robot Framework\00.robot' on line 5: Importing library 'C:\Projetos\Robot Framework\factories\Thanos.py' failed: ModuleNotFoundError: No module named 'faker'
+Traceback (most recent call last):
+  File "C:\Projetos\Robot Framework\factories\Thanos.py", line 1, in &lt;module&gt;
+    from faker import Faker
+PYTHONPATH:
+  C:\Python310\Scripts\robot.exe
+  C:\Python310\python310.zip
+  C:\Python310\DLLs
+  C:\Python310\lib
+  C:\Python310
+  C:\Python310\lib\site-packages</msg>
+</errors>
+</robot>
